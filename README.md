@@ -11,25 +11,13 @@
 **A modern, responsive Candidate Management Dashboard built with React.js and Tailwind CSS.  
 Search, filter, and manage job applicants — with live API integration and a beautiful dark mode.**
 
-[🌐 Live Demo](https://YOUR_VERCEL_URL) · [🐛 Report Bug](https://github.com/YOUR_USERNAME/candidate-dashboard/issues) · [✨ Request Feature](https://github.com/YOUR_USERNAME/candidate-dashboard/issues)
+[🌐 Live Demo](https://https://candidate-dashboard-red.vercel.app) · [🐛 Report Bug](https://github.com/meghav309/candidate-dashboard/issues) · [✨ Request Feature](https://github.com/meghav309/candidate-dashboard/issues)
 
 </div>
 
 ---
 
-## 📸 Screenshots
 
-> _Add your screenshots here after deployment._
-
-| Light Mode | Dark Mode |
-|---|---|
-| ![Light Mode Screenshot](./screenshots/light-mode.png) | ![Dark Mode Screenshot](./screenshots/dark-mode.png) |
-
-| Candidate Detail | Add Candidate Form |
-|---|---|
-| ![Detail Page](./screenshots/detail-page.png) | ![Add Form](./screenshots/add-form.png) |
-
----
 
 ## ✨ Features
 
@@ -73,7 +61,7 @@ Search, filter, and manage job applicants — with live API integration and a be
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/candidate-dashboard.git
+   git clone https://github.com/meghav309/candidate-dashboard
    cd candidate-dashboard
    ```
 
@@ -195,7 +183,7 @@ State shape:
 
 ---
 
-## 🎨 Design System
+##  Design System
 
 Custom tokens defined in `tailwind.config.js`:
 
@@ -231,26 +219,9 @@ Contributions are welcome!
 4. Push to the branch: `git push origin feature/your-feature`
 5. Open a Pull Request
 
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
-
-```
-MIT License — Copyright (c) 2024 YOUR_NAME
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files, to deal in the Software
-without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
-```
-
----
 
 <div align="center">
 
-Built with ❤️ using **React.js** + **Tailwind CSS**
-
-⭐ Star this repo if you found it helpful!
+Built by meghav vora  with  using **React.js** + **Tailwind CSS**
 
 </div>
