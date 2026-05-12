@@ -9,7 +9,6 @@ import {
   HiOutlineMail,
   HiOutlinePhone,
   HiOutlineLocationMarker,
-  HiOutlineAcademicCap,
   HiOutlineBriefcase,
   HiOutlineCalendar,
   HiOutlineUser,
