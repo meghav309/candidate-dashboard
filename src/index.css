@@ -1,13 +1,219 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   CUSTOM KEYFRAMES
+   All animation keyframes are defined here. Classes that use them live either
+   below or in Tailwind's theme.extend.keyframes / animation config.
+============================================================================= */
+
+/* ── Card entrance — staggered fade-up used by CandidateCard ── */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* ── Page entrance — full-page fade-up for detail / add pages ── */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Toast slide-in from top-right corner ── */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Toast progress bar drains left-to-right ── */
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0%;   }
+}
+
+/* ── Soft background shimmer for skeleton loaders (future use) ── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+/* ── Gentle float animation for decorative elements ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* =============================================================================
+   ANIMATION UTILITY CLASSES
+============================================================================= */
+
+.candidate-card {
+  animation: cardEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.detail-page-enter {
+  animation: pageEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-toast-in {
+  animation: toastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Toast progress bar — referenced from Toast.jsx via className="toast-progress" */
+.toast-progress {
+  animation: toastProgress linear forwards;
+  /* animationDuration is set inline from the DISMISS_MS constant */
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* =============================================================================
+   BACKGROUND TEXTURE
+   Subtle dot-grid pattern for both light and dark modes.
+   Applied to <body> — individual page containers can override with solid bg.
+============================================================================= */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+
+    /* Light mode: faint indigo dot grid */
+    background-image: radial-gradient(
+      circle,
+      rgba(99, 102, 241, 0.07) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Dark mode: slightly brighter dots so they're still barely visible */
+  .dark body,
+  :root:has(.dark) body {
+    background-image: radial-gradient(
+      circle,
+      rgba(99, 102, 241, 0.12) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Smooth dark-mode colour transitions on all elements */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* But don't transition things that shouldn't animate (breaks animations) */
+  .candidate-card,
+  .detail-page-enter,
+  .animate-toast-in,
+  .toast-progress {
+    transition: none;
+  }
+}
+
+/* =============================================================================
+   SCROLLBAR (Webkit)
+============================================================================= */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
+}
+
+/* =============================================================================
+   COMPONENT LAYER — reusable CSS-only components
+============================================================================= */
+@layer components {
+
+  /* Focus ring — applied via focus-visible for accessibility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-indigo-500 focus-visible:ring-offset-2
+           dark:focus-visible:ring-offset-gray-900;
+  }
+
+  /* Glass card surface used across the dashboard */
+  .glass-card {
+    @apply rounded-2xl border border-gray-200/80 dark:border-gray-700/60
+           bg-white/90 dark:bg-gray-800/70
+           backdrop-blur-sm
+           shadow-sm shadow-black/5 dark:shadow-black/20;
+  }
+
+  /* Gradient text — indigo/violet brand colour */
+  .gradient-text {
+    @apply bg-gradient-to-r from-violet-600 to-indigo-500
+           dark:from-violet-400 dark:to-indigo-300
+           bg-clip-text text-transparent;
+  }
+
+  /* Section label used in form sections / detail cards */
+  .section-label {
+    @apply text-[10px] font-bold uppercase tracking-widest
+           text-gray-400 dark:text-gray-500;
+  }
+}
+
+/* =============================================================================
+   REDUCED MOTION — respect user system preference
+============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .candidate-card,
+  .detail-page-enter,
+  .animate-toast-in,
+  .animate-float,
+  .animate-shimmer {
+    animation: none !important;
+  }
+
+  /* Also disable the global dark-mode colour transitions */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
